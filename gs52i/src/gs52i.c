@@ -2,7 +2,7 @@
 #include <stdlib.h> 
 #include <string.h> 
 #include <stdint.h>
-#include "geistshifter52.c"
+#include "geistshifter52i.c"
 
 /* Das GeistShifter 52 */
 /* by Karl Zander */
