@@ -77,7 +77,7 @@ void gs52step(struct GSmachine *machine) {
 uint8_t gs52subFW(struct GSmachine * machine, uint8_t letter) {
     int l = letter - 65;
     for (int i = 0; i < 52; i++) {
-        l = machine->r[machine->ctl[machinePos]].r[modadd(l, machine->r[i].pos, 26)];
+        l = machine->r[machine->ctl[i]].r[modadd(l, machine->r[i].pos, 26)];
     }
     return l + 65;
 }
