@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include "geistshifter52i.c"
 
-/* Das GeistShifter 52i v0.0.2 */
+/* Das GeistShifter 52i v0.0.3 */
 /* by Karl Zander */
 
 void usage() {
