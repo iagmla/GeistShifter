@@ -62,13 +62,15 @@ void gs52Init(struct GSmachine *machine, uint8_t *key) {
 }
 
 void gs52step(struct GSmachine *machine) {
-    int fwContact, bwContact, fwPos, stepPos, rotorPath;
+    int fwContact, bwContact, fwPos, bwPos, stepPos, rotorPath;
     rotorPath = machine->pos;
     fwContact = machine->r[stepPos].fwContact;
     bwContact = machine->r[stepPos].bwContact;
     fwPos = machine->r[fwContact].pos;
+    bwPos = machine->r[bwContact].pos;
     
     machine->r[rotorPath].pos = modadd(machine->r[rotorPath].pos, machine->r[fwContact].r[fwPos], 26);
+    machine->r[rotorPath].pos = modadd(machine->r[rotorPath].pos, machine->r[fwContact].r[bwPos], 26);
     machine->r[rotorPath].fwContact = modadd(machine->r[rotorPath].fwContact, machine->r[machine->ctl[rotorPath]].fwContact, 52);
     machine->r[rotorPath].bwContact = modadd(machine->r[rotorPath].bwContact, machine->r[machine->ctl[bwContact]].bwContact, 52);
     machine->pos = modadd(machine->pos, 1, 52);
@@ -76,20 +78,23 @@ void gs52step(struct GSmachine *machine) {
 
 uint8_t gs52subFW(struct GSmachine * machine, uint8_t letter) {
     int l = letter - 65;
+    int machinePos;
     for (int i = 0; i < 52; i++) {
-        l = machine->r[machine->ctl[i]].r[modadd(l, machine->r[i].pos, 26)];
+        machinePos = modadd(machine->pos, i, 52);
+        l = machine->r[machine->ctl[machinePos]].r[modadd(l, machine->r[i].pos, 26)];
     }
     return l + 65;
 }
 
 uint8_t gs52subBW(struct GSmachine * machine, uint8_t letter) {
     int l = letter - 65;
-    int fnd, pos;
+    int fnd, pos, machinePos;
     int c = 0;
     for (int i = 51; i != -1; i--) {
+        machinePos = modadd(machine->pos, i, 52);
         c = 0;
         while (1) {
-            fnd = machine->r[machine->ctl[i]].r[c];
+            fnd = machine->r[machine->ctl[machinePos]].r[c];
             if (fnd == l) {
                 break;
             }
