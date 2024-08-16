@@ -1,4 +1,4 @@
-/* Das GeistShifter 52i */
+/* Das GeistShifter */
 /* by Karl Zander */
 
 int ctl_rotor[52] = {23, 49, 44, 51, 24, 46, 48, 14, 18, 2, 20, 32, 33, 7, 1, 29, 6, 25, 43, 12, 36, 11, 9, 50, 45, 3, 4, 5, 31, 0, 34, 47, 30, 42, 21, 27, 41, 28, 10, 35, 22, 17, 26, 8, 38, 16, 13, 15, 40, 39, 37, 19};
@@ -80,7 +80,6 @@ void gs52step(struct GSmachine *machine) {
 uint8_t gs52subFW(struct GSmachine * machine, uint8_t letter) {
     int l = letter - 65;
     for (int i = 0; i < 52; i++) {
-        machine->pos = modadd(machine->pos, i, 52);
         l = machine->r[machine->ctl[machine->pos]].r[modadd(l, machine->r[i].pos, 26)];
     }
     return l + 65;
@@ -88,10 +87,9 @@ uint8_t gs52subFW(struct GSmachine * machine, uint8_t letter) {
 
 uint8_t gs52subBW(struct GSmachine * machine, uint8_t letter) {
     int l = letter - 65;
-    int fnd, pos, machinePos;
+    int fnd, pos;
     int c = 0;
     for (int i = 51; i != -1; i--) {
-        machine->pos = modadd(machine->pos, i, 52);
         c = 0;
         while (1) {
             fnd = machine->r[machine->ctl[machine->pos]].r[c];
