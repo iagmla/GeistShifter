@@ -54,6 +54,7 @@ void gs52Init(struct GSmachine *machine, uint8_t *key) {
     memcpy(machine->ctl, ctl_rotor, 52 * sizeof(int));
     machine->pos = 0;
     for (int i = 0; i < 52; i++) {
+        machine->pos = modadd(machine->pos, k[i], 52);
         machine->r[i].pos = k[i];
         machine->r[i].fwContact = modadd(i, 1, 52);
         machine->r[i].bwContact = modsub(i, 1, 52);
@@ -78,10 +79,10 @@ void gs52step(struct GSmachine *machine) {
 
 uint8_t gs52subFW(struct GSmachine * machine, uint8_t letter) {
     int l = letter - 65;
-    int machinePos;
+    //int machinePos = 0;
     for (int i = 0; i < 52; i++) {
-        machinePos = modadd(machine->pos, i, 52);
-        l = machine->r[machine->ctl[machinePos]].r[modadd(l, machine->r[i].pos, 26)];
+        machine->pos = modadd(machine->pos, i, 52);
+        l = machine->r[machine->ctl[machine->pos]].r[modadd(l, machine->r[i].pos, 26)];
     }
     return l + 65;
 }
@@ -91,10 +92,10 @@ uint8_t gs52subBW(struct GSmachine * machine, uint8_t letter) {
     int fnd, pos, machinePos;
     int c = 0;
     for (int i = 51; i != -1; i--) {
-        machinePos = modadd(machine->pos, i, 52);
+        machine->pos = modadd(machine->pos, i, 52);
         c = 0;
         while (1) {
-            fnd = machine->r[machine->ctl[machinePos]].r[c];
+            fnd = machine->r[machine->ctl[machine->pos]].r[c];
             if (fnd == l) {
                 break;
             }

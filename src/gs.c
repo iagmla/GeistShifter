@@ -2,13 +2,13 @@
 #include <stdlib.h> 
 #include <string.h> 
 #include <stdint.h>
-#include "geistshifter52i.c"
+#include "geistshifter.c"
 
-/* Das GeistShifter 52i v0.0.4 */
+/* Das GeistShifter v0.1.0 */
 /* by Karl Zander */
 
 void usage() {
-    printf("Das GeistShifter 52i v0.0.4\n");
+    printf("Das GeistShifter v0.1.0\n");
     printf("by KryptoMagick\n\n");
     printf("Usage: gs52i <-e/-d> <input file> <output file> <key length 52>\n");
 }
