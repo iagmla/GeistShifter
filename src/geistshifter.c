@@ -80,7 +80,7 @@ void gs52step(struct GSmachine *machine) {
 uint8_t gs52subFW(struct GSmachine * machine, uint8_t letter) {
     int l = letter - 65;
     for (int i = 0; i < 52; i++) {
-        l = machine->r[machine->ctl[machine->pos]].r[modadd(l, machine->r[i].pos, 26)];
+        l = machine->r[machine->ctl[i]].r[modadd(l, machine->r[i].pos, 26)];
     }
     return l + 65;
 }
@@ -92,7 +92,7 @@ uint8_t gs52subBW(struct GSmachine * machine, uint8_t letter) {
     for (int i = 51; i != -1; i--) {
         c = 0;
         while (1) {
-            fnd = machine->r[machine->ctl[machine->pos]].r[c];
+            fnd = machine->r[machine->ctl[i]].r[c];
             if (fnd == l) {
                 break;
             }

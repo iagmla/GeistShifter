@@ -4,11 +4,11 @@
 #include <stdint.h>
 #include "geistshifter.c"
 
-/* Das GeistShifter v1.0.0 */
+/* Das GeistShifter v1.1.0 */
 /* by Karl Zander */
 
 void usage() {
-    printf("Das GeistShifter v1.0.0\n");
+    printf("Das GeistShifter v1.1.0\n");
     printf("by KryptoMagick\n\n");
     printf("Usage: gs <-e/-d> <input file> <output file> <key length 52>\n");
 }
