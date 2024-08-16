@@ -63,10 +63,10 @@ void gs52Init(struct GSmachine *machine, uint8_t *key) {
 }
 
 void gs52step(struct GSmachine *machine) {
-    int fwContact, bwContact, fwPos, bwPos, stepPos, rotorPath;
+    int fwContact, bwContact, fwPos, bwPos, rotorPath;
     rotorPath = machine->pos;
-    fwContact = machine->r[stepPos].fwContact;
-    bwContact = machine->r[stepPos].bwContact;
+    fwContact = machine->r[rotorPath].fwContact;
+    bwContact = machine->r[rotorPath].bwContact;
     fwPos = machine->r[fwContact].pos;
     bwPos = machine->r[bwContact].pos;
     
