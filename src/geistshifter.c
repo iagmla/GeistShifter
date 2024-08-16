@@ -79,7 +79,6 @@ void gs52step(struct GSmachine *machine) {
 
 uint8_t gs52subFW(struct GSmachine * machine, uint8_t letter) {
     int l = letter - 65;
-    //int machinePos = 0;
     for (int i = 0; i < 52; i++) {
         machine->pos = modadd(machine->pos, i, 52);
         l = machine->r[machine->ctl[machine->pos]].r[modadd(l, machine->r[i].pos, 26)];
@@ -145,4 +144,3 @@ void gs52decrypt(char *infileName, char *outFilename, uint8_t *key) {
     fclose(infile);
     fclose(outfile);
 }
-
